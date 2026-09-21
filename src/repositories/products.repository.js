@@ -1,12 +1,11 @@
 import ProductModel from "../models/product.model.js";
-import { PRODUCT_STATUS } from "../constants/index.js";
+
+// repositorio de productos
 
 export const productsRepository = {
 
-    getAll: async () => {
-        return await ProductModel.find({
-            status: PRODUCT_STATUS.AVAILABLE
-        });
+    getAll: async (filters = {}) => {
+        return await ProductModel.find(filters);
     },
 
     getById: async (id) => {
@@ -15,5 +14,16 @@ export const productsRepository = {
 
     create: async (productData) => {
         return await ProductModel.create(productData);
+    },
+
+    update: async (id, updateData) => {
+        return await ProductModel.findByIdAndUpdate(id, updateData, {
+            new: true,
+            runValidators: true
+        });
+    },
+
+    delete: async (id) => {
+        return await ProductModel.findByIdAndDelete(id);
     }
 };

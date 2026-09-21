@@ -1,5 +1,7 @@
 import UserModel from "../models/user.model.js";
 
+// Repositorio de usuarios
+
 export const usersRepository = {
 
     getAll: async () => {

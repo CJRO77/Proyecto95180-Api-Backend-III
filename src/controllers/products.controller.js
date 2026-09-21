@@ -1,5 +1,8 @@
 import { productsService } from "../services/products.service.js";
 
+
+// controlador de productos
+
 export const getProducts = async (req, res) => {
     try {
         const products = await productsService.getAllProducts();
@@ -10,11 +13,8 @@ export const getProducts = async (req, res) => {
         });
 
     } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: "Error al obtener los productos",
-            error: error.message
-        });
+        const statusCode = error.statusCode || 500;
+        res.status(statusCode).json({ success: false, message: error.message });
     }
 };
 
@@ -23,24 +23,14 @@ export const getProductById = async (req, res) => {
     try {
         const product = await productsService.getProductById(req.params.id);
 
-        if (!product) {
-            return res.status(404).json({
-                success: false,
-                message: "Producto no encontrado"
-            });
-        }
-
         res.status(200).json({
             success: true,
             data: product
         });
 
     } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: "Error al obtener el producto",
-            error: error.message
-        });
+        const statusCode = error.statusCode || 500;
+        res.status(statusCode).json({ success: false, message: error.message });
     }
 };
 
@@ -56,10 +46,40 @@ export const createProduct = async (req, res) => {
         });
 
     } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: "Error al crear el producto",
-            error: error.message
+        const statusCode = error.statusCode || 500;
+        res.status(statusCode).json({ success: false, message: error.message });
+    }
+};
+
+
+export const updateProduct = async (req, res) => {
+    try {
+        const updatedProduct = await productsService.updateProduct(req.params.id, req.body);
+
+        res.status(200).json({
+            success: true,
+            message: "Producto actualizado correctamente",
+            data: updatedProduct
         });
+
+    } catch (error) {
+        const statusCode = error.statusCode || 500;
+        res.status(statusCode).json({ success: false, message: error.message });
+    }
+};
+
+
+export const deleteProduct = async (req, res) => {
+    try {
+        await productsService.deleteProduct(req.params.id);
+
+        res.status(200).json({
+            success: true,
+            message: "Producto eliminado correctamente"
+        });
+
+    } catch (error) {
+        const statusCode = error.statusCode || 500;
+        res.status(statusCode).json({ success: false, message: error.message });
     }
 };

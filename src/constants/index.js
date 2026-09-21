@@ -1,3 +1,7 @@
+// Configuración de variables de entorno
+
+
+
 export const USER_ROLES = Object.freeze({
     ADMIN: "ADMIN",
     USER: "USER"

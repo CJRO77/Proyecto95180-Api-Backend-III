@@ -2,6 +2,8 @@ import bcrypt from "bcryptjs";
 import { usersRepository } from "../repositories/users.repository.js";
 import { USER_ROLES } from "../constants/index.js";
 
+// Servicio de usuarios
+
 const SALT_ROUNDS = 10;
 
 export const usersService = {
@@ -42,6 +44,7 @@ export const usersService = {
         const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
         // nadie se autoasigna ADMIN al registrarse
+
         const newUser = await usersRepository.create({
             firstName,
             lastName,
@@ -56,7 +59,7 @@ export const usersService = {
     },
 
     updateUser: async (id, updateData) => {
-        await usersService.getUserById(id); // valida que exista (404 si no)
+        await usersService.getUserById(id); 
 
         if (updateData.password) {
             updateData.password = await bcrypt.hash(updateData.password, SALT_ROUNDS);
@@ -66,7 +69,7 @@ export const usersService = {
     },
 
     deleteUser: async (id) => {
-        await usersService.getUserById(id); // valida que exista (404 si no)
+        await usersService.getUserById(id); 
 
         return await usersRepository.delete(id);
     }

@@ -8,6 +8,8 @@ import {
     deleteUser
 } from "../controllers/users.controller.js";
 
+// rutas de usuarios
+
 const router = express.Router();
 
 router.get("/", getUsers);

@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import { USER_ROLES } from "../constants/index.js";
 
+// Definición del esquema de usuario
+
 const userSchema = new mongoose.Schema({
 
     firstName: {

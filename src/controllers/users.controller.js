@@ -1,5 +1,7 @@
 import { usersService } from "../services/users.service.js";
 
+// Controladores de usuarios
+
 export const getUsers = async (req, res) => {
     try {
         const users = await usersService.getAllUsers();

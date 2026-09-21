@@ -2,6 +2,8 @@ import express from "express";
 import productsRouter from "./routes/products.routes.js";
 import usersRouter from "./routes/users.routes.js";
 
+// Configuración de la aplicación Express
+
 const app = express();
 
 app.use(express.json());
