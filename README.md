@@ -1,24 +1,9 @@
 # ShipNow API
 
-API base de **ShipNow** plataforma orientada a la gestión de operaciones de una empresa de logística.
+API base de **ShipNow**, plataforma orientada a la gestión de operaciones de una empresa de logística.
 El proyecto aplica una **arquitectura profesional por capas** (**Controller → Service → Repository**),
 con validación de variables de entorno al arranque y un diccionario de
 constantes centralizado para roles y estados.
-
-## Estructura del proyecto
-
-```
-src/
-  config/          # Variables de entorno validadas + conexión a MongoDB
-  constants/       # Roles y estados del dominio (Object.freeze)
-  controllers/     # Única puerta de entrada HTTP (req/res)
-  services/        # Lógica de negocio
-  repositories/    # Único lugar que conoce Mongoose/MongoDB
-  models/          # Esquemas de Mongoose (sin lógica)
-  routes/          # Conectan path + método HTTP con el Controller
-  app.js           # Configuración de Express
-  server.js        # Punto de entrada: conecta DB y levanta el server
-```
 
 ## 🛠️ Tecnologías utilizadas
 
@@ -56,10 +41,12 @@ ShipNow utiliza una arquitectura de tres capas:
                       │
                       ▼
                   MongoDB
+```
 
- ## 📂 Estructura del proyecto
+## 📂 Estructura del proyecto
 
- ShipNow/
+```
+ShipNow/
 │
 ├── src/
 │   │
@@ -93,53 +80,48 @@ ShipNow utiliza una arquitectura de tres capas:
 │   ├── app.js
 │   └── server.js
 │
-├── .env
 ├── .env.example
 ├── .gitignore
 ├── package.json
 ├── package-lock.json
-└── README.md   
-
-
+└── README.md
+```
 
 ## ⚙️ Configuración del proyecto
 
+1. Clonar el repositorio:
+   ```bash
+   git clone https://github.com/CJRO77/Proyecto96795-Api-Backend-III.git
+   cd Proyecto96795-Api-Backend-III
+   ```
 
-1. Clonar el repositorio
+2. Instalar las dependencias:
+   ```bash
+   npm install
+   ```
 
-git clone https://github.com/CJRO77/Proyecto96795-Api-Backend-III.git
+3. Crear el archivo `.env` a partir del ejemplo:
+   ```bash
+   cp .env.example .env
+   ```
+   El archivo debe contener:
+   ```
+   PORT=3000
+   MONGODB_URI=tu_uri_de_mongodb
+   NODE_ENV=development
+   ```
 
-Luego ingresar al proyecto:
+4. Ejecutar el proyecto:
+   ```bash
+   npm run dev     # modo desarrollo, con auto-reload
+   # o
+   npm start       # modo normal
+   ```
 
-cd Proyecto96795-Api-Backend-III
-
-2. Instalar las dependencias
-npm install
-3. Crear el archivo .env
-
-Copiar el archivo .env.example y crear un archivo llamado:
-
-.env
-
-El archivo debe contener:
-
-PORT=3000
-MONGODB_URI=tu_uri_de_mongodb
-NODE_ENV=development
-
-4. Ejecutar el proyecto
-
-Para ejecutar el proyecto en modo desarrollo:
-
-npm run dev
-
-Para ejecutar el proyecto normalmente:
-
-npm start
-
-Si la configuración es correcta, se mostrará un mensaje indicando que MongoDB se conectó correctamente y que el servidor está ejecutándose.
-
-
+   Si la configuración es correcta, vas a ver un mensaje indicando que MongoDB
+   se conectó correctamente y que el servidor está ejecutándose. Si falta
+   alguna variable obligatoria (`PORT`, `MONGODB_URI`, `NODE_ENV`), la app
+   **no arranca** y muestra un error indicando cuál falta.
 
 ## Endpoints
 
@@ -161,8 +143,7 @@ Si la configuración es correcta, se mostrará un mensaje indicando que MongoDB 
 | PUT | `/:id` | Actualiza un usuario |
 | DELETE | `/:id` | Elimina un usuario |
 
-
-**¿Por qué separar la lógica entre Service y Repository?**
+## ¿Por qué separar la lógica entre Service y Repository?
 
 La regla que seguí fue: **el Repository solo sabe "buscar y guardar datos";
 el Service sabe "qué significan esos datos para el negocio"**.
@@ -194,7 +175,7 @@ error, vía `error.statusCode`) a una respuesta HTTP con el status code
 correspondiente (`400` en validaciones, `404` si el recurso no existe, `409`
 si un email ya está registrado).
 
-**Notas de diseño**
+## Notas de diseño
 
 - El Controller nunca importa `mongoose` ni los modelos directamente.
 - No hay strings sueltos para roles o estados: todo pasa por
@@ -206,29 +187,25 @@ si un email ya está registrado).
   cubriendo el CRUD completo, casos de error (400/404/409) y las reglas de
   negocio (recalculo automático de `status` según stock).
 
-
-
-
 ## Próximas etapas
 
 El proyecto ShipNow continuará incorporando funcionalidades relacionadas con una empresa de logística, entre ellas:
 
-Usuarios
-Comercios
-Repartidores
-Pedidos
-Estados de entrega
-Comprobantes
-Documentos
-Autenticación
-Autorización
-Testing
-Mocks
-Seguridad
-Escalabilidad
+- Comercios
+- Repartidores
+- Pedidos
+- Estados de entrega
+- Comprobantes
+- Documentos
+- Autenticación
+- Autorización
+- Testing
+- Mocks
+- Seguridad
+- Escalabilidad
 
-👨‍💻 Autor
+## 👨‍💻 Autor
 
-carlos Jonathan Rodriguez
+Carlos Jonathan Rodriguez
 
-Proyecto desarrollado como parte del aprendizaje de Programación Backend III - Comisión#96795 - Coderhouse.
+Proyecto desarrollado como parte del aprendizaje de Programación Backend III — Comisión #96795 — Coderhouse.
